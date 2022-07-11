@@ -14,7 +14,7 @@
 Для загрузки рецепта Terraform установите git [по инструкции](https://git-scm.com/book/ru/v2/Введение-Установка-Git).
  
 ## Установка Terraform
-Установите инструмент `Terraform` на свой компьютер (если он уже не установлен) по инструкции.
+Установите инструмент `Terraform` на свой компьютер (если он уже не установлен) по [(инструкции)](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart#install-terraform).
 
   ### Установка Terraform для Windows:
   Распакуйте архив и скопируйте файл terraform.exe в каталог `C:\Windows\System32`
@@ -74,17 +74,14 @@ yc config set token $env:YC_TOKEN
  
 ### Загрузка сценария Terraform
 ```bash
-git clone https://github.com/Sayanaro/YandexCloud-Prcticum-Security-Course.git
-cd YandexCloud-Prcticum-Security-Course
+git clone https://github.com/Sayanaro/YandexCloud-Security-Course-KeyCloack-AltVersion.git
+cd YandexCloud-Security-Course-KeyCloack-AltVersion
 ```
  
 ## Развёртывание рабочей среды с помощью Terraform
 Сценарий разворачивает контроллер домена Active Directory + ADFS, рабочую станцию ws и инстанс интернет-магазина OpenCart.
 
 Имена виртуальных машин задаются переменными в файле `terraform.tfvars`. Остальные переменные заданы в файле `variables.tf` в параметрах по умолчанию.
-
-> **⚠ ВНИМАНИЕ: не изменяйте имя домена.**  
-> Изменение имени домена Active Directory в сценарии с **yp-lab.edu** на любое другое приведет к ошибке при конфигурировании стенда.
 
 Для начала зададим переменные окружения:
  
@@ -122,4 +119,4 @@ terraform apply
 
 Дальнейшая работа будет проводиться на ВМ ws для демонстрации создания федерации.
 
-Логин администратора домена: administrator@yp-lab.edu
+
