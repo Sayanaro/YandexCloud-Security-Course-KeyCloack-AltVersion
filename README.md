@@ -1,6 +1,6 @@
 # YandexCloud-Practicum-Security-Course
 
-Сценарий для развертывания контроллера домена Active Directory, AD FS и рабочей станции в домене.
+Сценарий для развертывания контроллера домена IdP KeyCloak и рабочей станции.
 
 Сценарий написан для курса "Настройка безопасной среды в Yandex.Cloud".
 
@@ -81,7 +81,7 @@ cd YandexCloud-Security-Course-KeyCloack-AltVersion
 ## Развёртывание рабочей среды с помощью Terraform
 Сценарий разворачивает контроллер домена Active Directory + ADFS, рабочую станцию ws и инстанс интернет-магазина OpenCart.
 
-Имена виртуальных машин задаются переменными в файле `terraform.tfvars`. Остальные переменные заданы в файле `variables.tf` в параметрах по умолчанию.
+Имена виртуальных машин, домена, и пользователей задаются переменными в файле `terraform.tfvars`. Остальные переменные заданы в файле `variables.tf` в параметрах по умолчанию.
 
 Для начала зададим переменные окружения:
  
@@ -119,4 +119,22 @@ terraform apply
 
 Дальнейшая работа будет проводиться на ВМ ws для демонстрации создания федерации.
 
+### Подключение к ВМ из Windows:
+Перед созданием ВМ терраформ генерирует криптопару для доступа к гостевой ОС по протоколу SSH. Закрытый ключ сохраняется в файле `pt_key.pem`. Чтобы подключиться с использованием этого файла из ОС Windows необходимо изменить права доступа к нему.
+После выполнения сценария Terraform выполните в PowerShell:
 
+```PowerShell
+$Key = "pt_key.pem"
+Icacls $Key /c /t /Inheritance:d
+Icacls $Key /c /t /Remove:g Administrator "Authenticated Users" BUILTIN\Administrators BUILTIN Everyone System Users
+Icacls $Key /c /t /Grant ${env:UserName}:F
+TakeOwn /F $Key
+Icacls $Key /c /t /Grant:r ${env:UserName}:F
+Icacls $Key
+```
+
+После этого можно подключаться к ВМ Linux по ssh:
+
+```PowerShell
+ssh <username>@<pulic_ip> -i pt_key.pem
+```
