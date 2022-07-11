@@ -501,7 +501,7 @@ write_files:
         sleep 10
       done
 
-      kc.sh import --file=realm.json
+      /opt/keycloak/bin/kc.sh import --file=realm.json
     path: "/root/guest_prep.sh"
     permissions: "0740"
 runcmd:
