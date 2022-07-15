@@ -138,3 +138,23 @@ Icacls $Key
 ```PowerShell
 ssh <username>@<pulic_ip> -i pt_key.pem
 ```
+
+## Подключение к ВМ
+```bash
+# keycloak:
+ssh ubuntu@<keycloak_vm_public_ip> -i pt_key.pem
+
+# ws:
+ssh sles@<ws_vm_public_ip> -i pt_key.pem
+```
+
+Для полдключения к рабочему столу через VNC-клиент: 
+* подключитесь к ВМ ws по ssh:
+```bash
+ssh sles@<ws_vm_public_ip> -i pt_key.pem
+```
+* выполните:
+```bash
+vncserver -geometry 1200x800 -depth 32 -name remote-desktop :1
+```
+* Подключитесь к рабочему столу по порту 5901
